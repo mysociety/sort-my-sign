@@ -1,0 +1,14 @@
+@import "../sass/h5bp";
+@import "./_colours";
+@import "../sass/mixins";
+
+@import "../sass/base";
+
+.olMapViewport {
+    background-color: #fff;
+}
+
+.olLayerGrid {
+    opacity: 0.3;
+    filter: grayscale(1);
+}

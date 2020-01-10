@@ -1,0 +1,23 @@
+/* COLOURS */
+
+$primary: #007CB0;
+$primary_b: #F3B11E; // For the box around the front page postcode form only
+$primary_text: #222;
+
+$base_bg: #fff;
+$base_fg: #222;
+
+$nav_background_colour: #222;
+$nav_colour: #fff;
+$nav_hover_background_colour: #444;
+
+$col_click_map: #00BD08;
+
+$itemlist_item_background: #f6f6f6;
+$itemlist_item_background_hover: mix(#fff, $primary, 70%);
+
+$layout_front_stats_color: #222;
+
+$nicetable-stripe-background: #f3f3f3;
+
+$high-dpi-screen: '-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi';
