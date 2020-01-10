@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Creates symlinks into the main fixmystreet installation dir so they can be
+# used. Should be run as part of the deploy of a FMS vhost, from within the
+# FMS git checkout.
+
+# abort on any errors
+set -e
+
+# Allow null globs, to prevent weird file creation
+shopt -s nullglob
+
+# Check setup correctly
+FMS=$(pwd)
+if [ ! -e app.psgi ]; then
+    echo "Please run in the root of a fixmystreet checkout"
+    exit 1
+fi
+if [ ! -e ../sort-my-sign ]; then
+    echo "Please have a sort-my-sign checkout alongside the fixmystreet checkout"
+    exit 1
+fi
+
+# Move to the parent of the repos
+cd `dirname $0`/../..
+PARENT=$(pwd)
+TF="$PARENT/sort-my-sign"
+
+# Overwrite existing files and show filenames
+LN_FLAGS="-s -f -v"
+
+echo "Creating symlinks in $FMS:"
+
+ln $LN_FLAGS $TF/perllib/FixMyStreet/Cobrand/TransportFocus.pm $FMS/perllib/FixMyStreet/Cobrand/
+ln $LN_FLAGS $TF/templates/web/transportfocus $FMS/templates/web/
+ln $LN_FLAGS $TF/templates/email/transportfocus $FMS/templates/email/
+ln $LN_FLAGS $TF/web/cobrands/transportfocus $FMS/web/cobrands/

@@ -1,0 +1,33 @@
+@import "_colours";
+@import "../sass/layout";
+
+body {
+  background: #f7f7f7;
+}
+
+#main-nav {
+  margin-top: 0;
+}
+
+.frontpage #main-nav {
+  margin-top: 0.25em;
+}
+
+.nav-menu--main {
+  a {
+    &:hover,
+    &:active,
+    &:focus {
+      background: transparent;
+      color: lighten($blue, 10%);
+    }
+  }
+}
+
+.nav-menu--main span {
+  color: lighten($blue, 10%);
+}
+
+#front-main {
+  padding: 6em 1em;
+}

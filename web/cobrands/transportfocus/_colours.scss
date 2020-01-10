@@ -1,0 +1,26 @@
+/* COLOURS */
+
+$blue: #007CB0;
+$brown: #3C2E33;
+
+$primary: $blue;
+$primary_b: $primary;
+$primary_text: #fff;
+
+$base_bg: #dddddb;
+$base_fg: #222;
+
+$nav_background_colour: #eee;
+$nav_colour: #fff;
+$nav_hover_background_colour: #444;
+
+$col_click_map: #00BD08;
+
+$itemlist_item_background: #f6f6f6;
+$itemlist_item_background_hover: mix(#fff, $primary, 70%);
+
+$layout_front_stats_color: #222;
+
+$nicetable-stripe-background: #f3f3f3;
+
+$high-dpi-screen: '-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi';
