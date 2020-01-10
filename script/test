@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/../../fixmystreet"
+bin/run-tests -r ../sort-my-sign/t
