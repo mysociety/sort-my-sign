@@ -19,6 +19,11 @@ sub enable_category_groups { 1 }
 
 sub report_sent_confirmation_email { 'id' }
 
+sub report_form_extras { (
+    { name => 'how_long', required => 1 },
+    { name => 'consent', required => 1 },
+) }
+
 sub body {
     FixMyStreet::DB->resultset('Body')->search({ name => 'Highways England' })->first;
 }
