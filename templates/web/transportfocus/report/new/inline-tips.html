@@ -7,3 +7,25 @@
         <li>Don’t include private contact details in the&nbsp;description</li>
     </ul>
 </div>
+
+<label for="form_consent">How the details you provide will be used</label>
+
+<div class="form-section-description" id="js-councils_text">
+    [% INCLUDE 'report/new/councils_text_all.html' %]
+</div>
+
+[% IF field_errors.consent %]
+    <p class='form-error'>[% field_errors.consent %]</p>
+[% END %]
+
+<p>
+<input id="form_consent" type="checkbox" name="consent" value="1" required[% ' checked' IF report.get_extra_metadata('consent') %]>
+<label for="form_consent" class="inline">I confirm I'm happy for my data to be processed</label>
+</p>
+
+<p><small>You are agreeing that Highways England may respond to you about the
+issues you have raised. You are agreeing that Transport Focus may use any
+information you provide in this form, including photographs, in its work on
+behalf of road users and that it may contact you about this. Transport Focus
+will not share the information you provide with any organisation except
+Highways England, unless required to do so by law.</small></p>

@@ -1,0 +1,18 @@
+<label for="form_how_long">How long has it been like this?</label>
+[% IF field_errors.how_long %]
+    <p class='form-error'>[% field_errors.how_long %]</p>
+[% END %]
+<ul>
+    [%~ SET how_long = report.get_extra_metadata('how_long') %]
+    <li><input type="radio" value="0-3 months" name="how_long" id="form_how_long_1"[% ' checked' IF how_long == '0-3 months' %]>
+        <label class="inline" for="form_how_long_1">0-3 months</label></li>
+    <li><input type="radio" value="4-6 months" name="how_long" id="form_how_long_4"[% ' checked' IF how_long == '4-6 months' %]>
+        <label class="inline" for="form_how_long_4">4-6 months</label></li>
+    <li><input type="radio" value="7-12 months" name="how_long" id="form_how_long_7"[% ' checked' IF how_long == '7-12 months' %]>
+        <label class="inline" for="form_how_long_7">7-12 months</label></li>
+    <li><input type="radio" value="12+ months" name="how_long" id="form_how_long_12"[% ' checked' IF how_long == '12+ months' %]>
+        <label class="inline" for="form_how_long_12">12+ months</label></li>
+    <li><input type="radio" value="Not sure" name="how_long" id="form_how_long_0"[% ' checked' IF how_long == 'Not sure' %]>
+        <label class="inline" for="form_how_long_0">Not sure</label></li>
+</ul>
+

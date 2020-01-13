@@ -1,0 +1,10 @@
+[% IF problem.get_extra_field_value('subcategory') %]
+<p>
+    <strong>Subcategory:</strong>
+    [% problem.get_extra_field_value('subcategory') %]
+</p>
+[% END %]
+<p>
+    <strong>How long has it been like this?</strong>
+    [% problem.get_extra_metadata('how_long') %]
+</p>
