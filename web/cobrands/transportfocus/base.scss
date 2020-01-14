@@ -4,6 +4,121 @@
 
 @import "../sass/base";
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 40px;
+    letter-spacing: -1px;
+}
+
+h2 {
+    font-size: 24px;
+    letter-spacing:  -0.25px;
+}
+
+h3 {
+    font-size: 16px;
+    letter-spacing: -0.25px;
+}
+
+
+.dev-site-notice {
+    display: none;
+}
+
+#report-cta {
+    border-color: #ddd;
+}
+
+#site-header {
+    background-color: $brown;
+}
+
+#site-logo {
+    height: 54px;
+    width: 54px;
+    background-size: 54px 54px;
+    @include svg-background-image("/cobrands/transportfocus/images/logo");
+    padding: 0.5em 0;
+    margin-top: 2px;
+    .mappage & {
+        padding: 0;
+    }
+}
+
+.nav-menu {
+    a, span {
+    border-bottom: 1px solid lighten($brown, 10%);
+    background-color: $brown;
+    color: white;
+    &:hover,
+    &:active,
+    &:focus {
+            color: white;
+            background-color: $blue;
+        }
+    }
+    &:visited {
+        color: white !important;
+    }
+
+    
+} 
+
+#front-main {
+    text-align: left;
+    #postcodeForm {
+        padding-top: 0;
+        div {
+            margin-left:0 !important;
+            margin-right:0 !important;;
+            background: transparent;
+            input#pc {
+                background: white;
+            }
+            input#sub {
+                background-color: $brown;
+            }
+        }
+    }
+}
+
+.form-hint {
+    color: rgba(255,255,255,0.6);
+}
+
+ol.big-numbers > li::before {
+    color: $brown;
+}
+
+// Set the default font colour everywhere
+body, .content {
+  color: black;
+}
+
+.btn-primary, .green-btn, .btn--primary {
+    background: $blue;
+    border: 1px solid $blue;
+    &:hover,
+    &:active,
+    &:focus {
+        background: darken($blue, 10%);
+        border: 1px solid darken($blue, 10%);
+    }
+}
+
+
+a#geolocate_link {
+  color: $primary;
+}
+
+
 .olMapViewport {
     background-color: #fff;
 }

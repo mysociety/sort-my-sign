@@ -1,13 +1,16 @@
 /* COLOURS */
 
-$primary: #007CB0;
-$primary_b: #F3B11E; // For the box around the front page postcode form only
-$primary_text: #222;
+$blue: #007CB0;
+$brown: #3C2E33;
 
-$base_bg: #fff;
+$primary: $blue;
+$primary_b: $primary;
+$primary_text: #fff;
+
+$base_bg: #dddddb;
 $base_fg: #222;
 
-$nav_background_colour: #222;
+$nav_background_colour: #eee;
 $nav_colour: #fff;
 $nav_hover_background_colour: #444;
 

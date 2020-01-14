@@ -31,6 +31,10 @@ sub disambiguate_location {
     };
 }
 
+sub enter_postcode_text {
+    'Enter a location, road name or postcode';
+}
+
 sub geocode_postcode {
     my ( $self, $s ) = @_;
 
