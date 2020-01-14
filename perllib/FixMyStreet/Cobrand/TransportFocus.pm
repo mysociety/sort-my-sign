@@ -22,6 +22,7 @@ sub report_sent_confirmation_email { 'id' }
 sub report_form_extras { (
     { name => 'how_long', required => 1 },
     { name => 'consent', required => 1 },
+    { name => 'road_name', required => 0 },
 ) }
 
 sub body {
