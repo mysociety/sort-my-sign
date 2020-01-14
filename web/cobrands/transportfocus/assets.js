@@ -38,6 +38,10 @@ fixmystreet.assets.add(defaults, {
 
     non_interactive: true,
     road: true,
+    usrn: {
+        field: 'road_name',
+        attribute: 'ROA_NUMBER'
+    },
     all_categories: true,
 
     // motorways are wide and the lines to define them are narrow so we

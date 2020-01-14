@@ -5,6 +5,10 @@
 </p>
 [% END %]
 <p>
+    <strong>Road:</strong>
+    [% problem.get_extra_metadata('road_name') %]
+</p>
+<p>
     <strong>How long has it been like this?</strong>
     [% problem.get_extra_metadata('how_long') %]
 </p>
