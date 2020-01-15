@@ -1,0 +1,93 @@
+#!/usr/bin/perl
+#
+# I downloaded the database of all marker posts from
+# https://www.whatdotheyknow.com/request/positions_of_driver_location_sig
+# and exported it as a CSV called roads.csv
+
+use Data::Dumper;
+use strict;
+use warnings;
+
+BEGIN {
+    use File::Basename qw(dirname);
+    use File::Spec;
+    my $d = dirname(File::Spec->rel2abs($0));
+    require "$d/../../fixmystreet/setenv.pl";
+}
+
+use DBI;
+use Text::CSV;
+use FixMyStreet;
+
+my $db = DBI->connect('dbi:SQLite:dbname='. FixMyStreet->path_to('../data/roads.sqlite'));
+
+$db->do(<<EOF) or die $db->errstr;
+CREATE TABLE IF NOT EXISTS junction (
+    name TEXT NOT NULL,
+    road TEXT NOT NULL,
+    easting INTEGER NOT NULL,
+    northing INTEGER NOT NULL,
+    PRIMARY KEY (name, road)
+);
+EOF
+
+$db->do(<<EOF) or die $db->errstr;
+CREATE TABLE IF NOT EXISTS sign (
+    road TEXT NOT NULL,
+    distance TEXT NOT NULL,
+    side TEXT NOT NULL,
+    easting INTEGER NOT NULL,
+    northing INTEGER NOT NULL
+);
+EOF
+
+$db->do(<<EOF) or die $db->errstr;
+CREATE INDEX IF NOT EXISTS sign_idx ON sign (road, distance);
+EOF
+
+my $q_sign = $db->prepare('INSERT INTO sign (road, distance, side, easting, northing) VALUES (?, ?, ?, ?, ?)');
+my $q_junction = $db->prepare('INSERT INTO junction (road, name, easting, northing) VALUES (?, ?, ?, ?)');
+
+my $csv = Text::CSV->new ({ binary => 1, auto_diag => 1 });
+open my $fh, "<:encoding(utf8)", "roads.csv" or die "roads.csv: $!";
+$csv->header($fh);
+
+my %all;
+my $c = 0;
+while (my $row = $csv->getline_hr($fh)) {
+    my $marker = $row->{bd};
+    $marker =~ /P(\d+)\/(\d+)([ABJMKL])/ or next;
+
+    my $kms = "$1.$2";
+    my $letter = $3;
+
+    my $road = $row->{dd};
+    next unless $road =~ /^[AM]/;
+
+    my $e = $row->{easting};
+    my $n = $row->{northing};
+    my $name = $row->{tn};
+
+    $q_sign->execute($road, $kms, $letter, $e, $n) or warn $db->errstr . " $road $kms $letter";
+    print '.' unless $c++ % 1000;
+
+    next unless $name =~ /ASIDE|BSIDE/;
+    $name =~ s/ ASIDE| BSIDE//;
+    push @{$all{$road}{$name}}, $row;
+}
+
+close $fh;
+
+for my $road (sort keys %all) {
+    foreach my $junction (sort keys %{$all{$road}}) {
+        my $tot_e = 0; my $tot_n = 0; my $n = 0;
+        foreach (@{$all{$road}{$junction}}) {
+            $tot_e += $_->{easting};
+            $tot_n += $_->{northing};
+            $n++;
+        }
+        my $avg_e = int($tot_e/$n+0.5);
+        my $avg_n = int($tot_n/$n+0.5);
+        $q_junction->execute($road, $junction, $avg_e, $avg_n);
+    }
+}
