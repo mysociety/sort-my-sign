@@ -1,0 +1,32 @@
+Subject: Your report has been logged: [% report.title %]
+
+Hello [% report.name %],
+
+Thank you for taking part in Sort My Sign.
+
+Your report has been passed to Highways England. They will reply to you about
+what you have sent in.
+
+Highways England aims to respond within 15 working days. If you need to get in
+touch with them after that, visit
+https://highwaysengland.co.uk/highways-england-about-us/
+
+If you need to contact Transport Focus, please visit
+https://www.transportfocus.org.uk/contact/general/
+
+Your report is available to view at:
+
+[% cobrand.base_url_for_report(report) %][% report.url %]
+
+Your report has the title:
+
+[% report.title %]
+
+And details:
+
+[% report.detail %]
+
+[% signature %]
+
+This email was sent automatically, from an unmonitored email account - so
+please do not reply to it.
