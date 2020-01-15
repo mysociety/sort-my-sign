@@ -1,0 +1,39 @@
+[%
+
+email_summary = "Thanks for logging your report";
+email_columns = 2;
+
+PROCESS '_email_settings.html';
+INCLUDE '_email_top.html';
+
+%]
+
+<th style="[% td_style %][% primary_column_style %]" id="primary_column">
+  [% start_padded_box | safe %]
+
+  <h1 style="[% h1_style %]">Your report has been&nbsp;logged</h1>
+
+  <p style="[% p_style %]">Thank you for taking part in Sort My Sign.</p>
+
+  <p style="[% p_style %]">Your report has been passed to Highways England.
+  They will reply to you about what you have sent in.</p>
+
+  <p style="[% p_style %]">Highways England aims to respond within 15 working days.
+  If you need to get in touch with them after that,
+  <a href="https://highwaysengland.co.uk/highways-england-about-us/">visit the
+      Highways England website</a>.</p>
+
+  <p style="[% p_style %]">If you need to contact Transport Focus, please
+  <a href="https://www.transportfocus.org.uk/contact/general/">visit our website</a>.</p>
+
+  <p style="margin: 20px auto; text-align: center">
+  <a style="[% button_style %]" href="[% cobrand.base_url_for_report(report) %][% report.url %]">View my report</a>
+  </p>
+  [% end_padded_box | safe %]
+</th>
+[% WRAPPER '_email_sidebar.html' object = report %]
+    <h2 style="[% h2_style %]">[% report.title | html %]</h2>
+    <p style="[% secondary_p_style %]">[% report.detail | html %]</p>
+[% END %]
+
+[% INCLUDE '_email_bottom.html' %]
