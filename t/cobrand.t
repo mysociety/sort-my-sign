@@ -1,5 +1,17 @@
 use FixMyStreet::TestMech;
 use FixMyStreet::Script::Reports;
+use Test::MockModule;
+
+my $cobrand = Test::MockModule->new('FixMyStreet::Cobrand::TransportFocus');
+$cobrand->mock('_lookup_db', sub {
+    my ($road, $table, $thing, $thing_name) = @_;
+
+    if ($road eq 'M6' && $thing eq '11') {
+        return { latitude => 52.65866, longitude => -2.06447 };
+    } elsif ($road eq 'M5' && $thing eq '132.5') {
+        return { latitude => 51.5457, longitude => 2.57136 };
+    }
+});
 
 FixMyStreet::App->log->disable('info');
 
@@ -20,6 +32,13 @@ FixMyStreet::override_config {
 
     $mech->get_ok('/');
     $mech->content_contains('Sort My Sign');
+
+    $mech->submit_form_ok({ with_fields => { pc => 'M6, Junction 11' } });
+    $mech->content_contains('52.65866');
+
+    $mech->get_ok('/');
+    $mech->submit_form_ok({ with_fields => { pc => 'M5 132.5' } });
+    $mech->content_contains('51.5457');
 
     $mech->get_ok('/around?lat=52.51093&lon=-1.86514');
     $mech->follow_link_ok({ text_regex => qr/skip this step/i });
