@@ -1,0 +1,8 @@
+<p class="report-list-filters">
+    <label for="sort">[% loc('Sort by') %]</label>
+    <select class="form-control" name="sort" id="sort">
+        <option value="created-desc"[% ' selected' IF sort_key == 'created-desc' %]>[% loc('Newest') %]</option>
+        <option value="created-asc"[% ' selected' IF sort_key == 'created-asc' %]>[% loc('Oldest') %]</option>
+    </select>
+    <input type="submit" name="filter_update" value="[% loc('Go') %]">
+</p>
