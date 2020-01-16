@@ -32,6 +32,7 @@ LN_FLAGS="-s -f -v"
 echo "Creating symlinks in $FMS:"
 
 ln $LN_FLAGS $TF/perllib/FixMyStreet/Cobrand/TransportFocus.pm $FMS/perllib/FixMyStreet/Cobrand/
+ln $LN_FLAGS $TF/perllib/FixMyStreet/Map/TransportFocus.pm $FMS/perllib/FixMyStreet/Map/
 ln $LN_FLAGS $TF/templates/web/transportfocus $FMS/templates/web/
 ln $LN_FLAGS $TF/templates/email/transportfocus $FMS/templates/email/
 ln $LN_FLAGS $TF/web/cobrands/transportfocus $FMS/web/cobrands/
