@@ -13,6 +13,12 @@ body {
   margin-top: 0.25em;
 }
 
+.frontpage #site-logo {
+  height: 96px;
+  width: 96px;
+  background-size: 96px;
+}
+
 .nav-menu--main {
   a {
     &:hover,
