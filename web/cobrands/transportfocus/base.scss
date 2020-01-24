@@ -153,3 +153,34 @@ a#geolocate_link {
 #key-tool-report-updates {
     display: none !important;
 }
+
+.pre-steps {
+    border-bottom: 3px dashed $brown;
+    margin-bottom: 3em;
+    padding-bottom: 1.5em;
+    text-align: center;
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    h2 {
+        margin-bottom: 0.25em;
+    }
+    p {
+        line-height: 1.35em;
+    }
+    h2, p {
+        margin-right: 1.5em;
+        margin-left: 1.5em;
+    }
+}
+
+.pre-steps-column {
+    img {
+        display: inline-block;
+        max-width: 66%;
+        height: auto;
+        margin: 0 auto
+    }
+}
