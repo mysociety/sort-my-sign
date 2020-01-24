@@ -37,3 +37,23 @@ body {
 #front-main {
   padding: 6em 1em;
 }
+
+#front_stats {
+  border-top: 3px dashed $brown;
+  padding-top: 1.5em;
+}
+
+.pre-steps {
+  padding-bottom: 0;
+}
+
+.pre-steps-column {
+  width: 33.333%;
+  float: left;  
+  position: relative;
+  top: -4em;
+  margin-bottom: -2em;
+  img {
+    max-width: 80%;
+  } 
+}
