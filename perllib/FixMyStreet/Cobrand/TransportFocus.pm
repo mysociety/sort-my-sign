@@ -163,4 +163,16 @@ sub dashboard_export_problems_add_columns {
     };
 }
 
+sub fetch_area_children {
+    my $self = shift;
+
+    my $areas = FixMyStreet::MapIt::call('areas', $self->area_types);
+    $areas = {
+        map { $_->{id} => $_ }
+        grep { $_->{country} eq 'E' }
+        values %$areas
+    };
+    return $areas;
+}
+
 1;
