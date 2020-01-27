@@ -119,4 +119,48 @@ sub _lookup_db {
     }
 }
 
+sub dashboard_export_problems_add_columns {
+    my $self = shift;
+    my $c = $self->{c};
+
+    my $body = $self->body;
+    my %groups = FixMyStreet::DB->resultset('Contact')->active->search({
+        body_id => $self->body->id,
+    })->group_lookup;
+
+    splice @{$c->stash->{csv}->{headers}}, 5, 0, 'Subcategory';
+    splice @{$c->stash->{csv}->{columns}}, 5, 0, 'subcategory';
+
+    $c->stash->{csv}->{headers} = [
+        grep { $_ !~ /Acknowledged|Fixed|Closed|Status|Site Used|Reported As/ }
+        map {
+            if ($_ eq 'Ward') { 'Region' }
+            elsif ($_ eq 'Title') { 'Where' }
+            else { $_ }
+        } @{ $c->stash->{csv}->{headers} },
+        "Road",
+        "How long",
+    ];
+
+    $c->stash->{csv}->{columns} = [
+        grep { $_ !~ /acknowledged|fixed|closed|state|site_used|reported_as/ }
+        @{ $c->stash->{csv}->{columns} },
+        "road_name",
+        "how_long",
+    ];
+
+    $c->stash->{csv}->{extra_data} = sub {
+        my $report = shift;
+        my $fields = {
+            road_name => $report->get_extra_metadata('road_name'),
+            how_long => $report->get_extra_metadata('how_long'),
+        };
+        if ($groups{$report->category}) {
+            $fields->{category} = $groups{$report->category};
+            $fields->{subcategory} = $report->category;
+        }
+        return $fields;
+    };
+}
+
 1;
