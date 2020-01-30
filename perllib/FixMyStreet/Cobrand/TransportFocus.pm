@@ -22,6 +22,8 @@ sub suppress_reporter_alerts { 1 }
 
 sub send_questionnaires { 0 }
 
+sub hide_areas_on_reports { 1 }
+
 sub enable_category_groups { 1 }
 
 sub report_sent_confirmation_email { 'id' }

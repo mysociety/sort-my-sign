@@ -57,21 +57,54 @@ fixmystreet.assets.add(defaults, {
 
 })();
 
+
+OpenLayers.Layer.Highways = OpenLayers.Class(OpenLayers.Layer.XYZ, {
+    name: 'Highways',
+    url: [
+        "//tilma.mysociety.org/highways/${z}/${x}/${y}.png",
+        "//a.tilma.mysociety.org/highways/${z}/${x}/${y}.png",
+        "//b.tilma.mysociety.org/highways/${z}/${x}/${y}.png",
+        "//c.tilma.mysociety.org/highways/${z}/${x}/${y}.png"
+    ],
+    sphericalMercator: true,
+    isBaseLayer: false,
+    CLASS_NAME: "OpenLayers.Layer.Highways"
+});
+
 $(function() {
     if (!fixmystreet.map) {
         return;
     }
 
-    // We want to show the asset layer on a report page
-    if (fixmystreet.page !== 'report') {
-        return;
+    // Can't use vector layer on reports, too big, use tiles instead
+    var layer;
+    if (fixmystreet.page === 'reports') {
+        layer = new OpenLayers.Layer.Highways(null, null, { className: 'olLayerHighways' });
+        fixmystreet.map.addLayer(layer);
+        layer.setVisibility(true);
+
+        var qs = OpenLayers.Util.getParameters(fixmystreet.original.href);
+        if (!qs.bbox && !qs.lat && !qs.lon) {
+            var strategy = fixmystreet.markers.strategies[0];
+            strategy.deactivate();
+            var bounds = new OpenLayers.Bounds(-614115, 6468053, 195660, 7519292);
+            var center = bounds.getCenterLonLat();
+            var z = fixmystreet.map.getZoomForExtent(bounds);
+            fixmystreet.map.setCenter(center, z);
+            // Reactivate the strategy and make it think it's done an update
+            strategy.activate();
+            if (strategy instanceof OpenLayers.Strategy.BBOX) {
+                strategy.calculateBounds();
+                strategy.resolution = fixmystreet.map.getResolution();
+            }
+        }
+    } else if (fixmystreet.page === 'report') {
+        layer = fixmystreet.assets.layers[0];
+        fixmystreet.map.addLayer(layer);
     }
 
-    var layer = fixmystreet.assets.layers[0];
-    fixmystreet.map.addLayer(layer);
-
     var pins_layer = fixmystreet.map.getLayersByName("Pins")[0];
-    if (pins_layer) {
+    if (layer && pins_layer) {
         layer.setZIndex(pins_layer.getZIndex()-1);
     }
 });
