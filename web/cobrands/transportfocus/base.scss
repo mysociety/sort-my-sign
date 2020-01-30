@@ -154,10 +154,10 @@ a#geolocate_link {
     display: none !important;
 }
 
-.pre-steps {
-    border-bottom: 3px dashed $brown;
-    margin-bottom: 3em;
-    padding-bottom: 1.5em;
+.post-steps {
+    border-top: 3px dashed $brown;
+    margin-top: 2em;
+    padding-top: 1.5em;
     text-align: center;
     &:after {
         content: "";
@@ -176,7 +176,7 @@ a#geolocate_link {
     }
 }
 
-.pre-steps-column {
+.post-steps-column {
     img {
         display: inline-block;
         max-width: 66%;
