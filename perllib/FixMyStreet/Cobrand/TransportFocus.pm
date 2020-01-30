@@ -18,6 +18,8 @@ sub all_reports_single_body { { name => $_[0]->council_name } }
 
 sub updates_disallowed { 1 }
 
+sub hide_areas_on_reports { 1 }
+
 sub enable_category_groups { 1 }
 
 sub report_sent_confirmation_email { 'id' }
