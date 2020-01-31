@@ -134,6 +134,15 @@ a#geolocate_link {
     filter: grayscale(1);
 }
 
+.extra-category-questions {
+    .form-section-description {
+        display: none;
+    }
+    label {
+        margin-top: 0;
+    }
+}
+
 .transport-focus-logo {
     display: inline-block;
     height: 60px;
