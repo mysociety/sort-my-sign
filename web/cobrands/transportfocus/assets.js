@@ -56,3 +56,22 @@ fixmystreet.assets.add(defaults, {
 });
 
 })();
+
+$(function() {
+    if (!fixmystreet.map) {
+        return;
+    }
+
+    // We want to show the asset layer on a report page
+    if (fixmystreet.page !== 'report') {
+        return;
+    }
+
+    var layer = fixmystreet.assets.layers[0];
+    fixmystreet.map.addLayer(layer);
+
+    var pins_layer = fixmystreet.map.getLayersByName("Pins")[0];
+    if (pins_layer) {
+        layer.setZIndex(pins_layer.getZIndex()-1);
+    }
+});
