@@ -49,6 +49,7 @@ FixMyStreet::override_config {
             name => 'Joe Bloggs',
             category => 'Missing',
             consent => 1,
+            road_name => 'M6',
             how_long => '3-6 months',
         }
     });
@@ -64,6 +65,21 @@ FixMyStreet::override_config {
     like $email, qr/A user of Sort My Sign/;
     $email = $mech->get_text_body_from_email($emails[1]);
     like $email, qr/Thank you for taking part/;
+};
+
+FixMyStreet::override_config {
+    ALLOWED_COBRANDS => 'transportfocus',
+    MAPIT_URL => 'http://mapit.uk',
+    MAPIT_TYPES => ['UTA'], # Just so mock area list does not error
+}, sub {
+    my $user = $mech->log_in_ok('staff@example.org');
+    $user->update({ from_body => $body->id });
+
+    $mech->get_ok('/dashboard');
+    $mech->follow_link_ok({ text => 'Reports' });
+    $mech->content_contains('"Report ID",Where,Detail,"User Name",Email,Phone,Category,Subcategory,Created,Confirmed,Latitude,Longitude,Query,Region,Easting,Northing,"Report URL",Road,"How long"');
+    $mech->content_contains('"Joe Bloggs",pkg-sort-my-signtcobrandt-user@example.org,,Missing,,');
+    $mech->content_contains('M6,"3-6 months"');
 };
 
 done_testing;

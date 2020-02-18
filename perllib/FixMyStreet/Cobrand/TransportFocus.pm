@@ -137,6 +137,7 @@ sub dashboard_export_problems_add_columns {
         map {
             if ($_ eq 'Ward') { 'Region' }
             elsif ($_ eq 'Title') { 'Where' }
+            elsif ($_ eq 'User Name') { ('User Name', 'Email', 'Phone') }
             else { $_ }
         } @{ $c->stash->{csv}->{headers} },
         "Road",
@@ -145,14 +146,26 @@ sub dashboard_export_problems_add_columns {
 
     $c->stash->{csv}->{columns} = [
         grep { $_ !~ /acknowledged|fixed|closed|state|site_used|reported_as/ }
+        map {
+            if ($_ eq 'user_name_display') { ('user_name', 'user_email', 'user_phone') }
+            else { $_ }
+        }
         @{ $c->stash->{csv}->{columns} },
         "road_name",
         "how_long",
     ];
 
+    $c->stash->{csv}->{objects} = $c->stash->{csv}->{objects}->search(undef, {
+        '+columns' => ['user.email', 'user.phone'],
+        prefetch => 'user',
+    });
+
     $c->stash->{csv}->{extra_data} = sub {
         my $report = shift;
         my $fields = {
+            user_name => $report->name,
+            user_email => $report->user->email || '',
+            user_phone => $report->user->phone || '',
             road_name => $report->get_extra_metadata('road_name'),
             how_long => $report->get_extra_metadata('how_long'),
             subcategory => $report->get_extra_metadata('subcategory') || '',
