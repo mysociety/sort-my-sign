@@ -40,7 +40,12 @@ sub body {
     FixMyStreet::DB->resultset('Body')->search({ name => 'Highways England' })->first;
 }
 
-sub dashboard_permission { $_[0]->body->id }
+sub dashboard_permission {
+    my $self = shift;
+    my $c = $self->{c};
+    return unless $c->req->path eq 'dashboard/heatmap';
+    return $self->body->id;
+}
 
 sub area_check {
     my ( $self, $params, $context ) = @_;

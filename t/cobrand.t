@@ -71,7 +71,12 @@ FixMyStreet::override_config {
     ALLOWED_COBRANDS => 'transportfocus',
     MAPIT_URL => 'http://mapit.uk',
     MAPIT_TYPES => ['UTA'], # Just so mock area list does not error
+    COBRAND_FEATURES => { heatmap => { transportfocus => 1 } },
 }, sub {
+    $mech->get_ok('/dashboard/heatmap');
+    $mech->get('/dashboard');
+    is $mech->res->code, 404;
+
     my $user = $mech->log_in_ok('staff@example.org');
     $user->update({ from_body => $body->id });
 
