@@ -173,7 +173,7 @@ sub dashboard_export_problems_add_columns {
             user_phone => $report->user->phone || '',
             road_name => $report->get_extra_metadata('road_name'),
             how_long => $report->get_extra_metadata('how_long'),
-            subcategory => $report->get_extra_metadata('subcategory') || '',
+            subcategory => $report->get_extra_field_value('subcategory') || '',
         };
         return $fields;
     };
