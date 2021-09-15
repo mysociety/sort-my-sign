@@ -6,34 +6,3 @@
     <li>Enter details of the problem</li>
     <li>We send it to National Highways on your behalf</li>
 </ol>
-
-<section class="full-width">
-
-[% USE Number.Format %]
-
-[%
-    stats = c.cobrand.front_stats_data();
-
-    new_text =
-        stats.recency == '1 week'
-        ? nget(
-            "<big>%s</big> report in past week",
-            "<big>%s</big> reports in past week",
-            stats.new
-          )
-        : nget(
-            "<big>%s</big> report recently",
-            "<big>%s</big> reports recently",
-            stats.new
-         );
-
-    new_n = stats.new | format_number;
-%]
-
-<div id="front_stats">
-    <div>[% tprintf( new_text, decode(new_n) ) %]</div>
-</div>
-
-[% TRY %][% INCLUDE "front/tips.html" %][% CATCH file %][% END %]
-</section>
-
