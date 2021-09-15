@@ -4,10 +4,10 @@ Hello [% report.name %],
 
 Thank you for taking part in Sort My Sign.
 
-Your report has been passed to Highways England. They will reply to you about
+Your report has been passed to National Highways. They will reply to you about
 what you have sent in.
 
-Highways England aims to respond within 15 working days. If you need to get in
+National Highways aims to respond within 15 working days. If you need to get in
 touch with them after that, visit
 https://highwaysengland.co.uk/highways-england-about-us/
 

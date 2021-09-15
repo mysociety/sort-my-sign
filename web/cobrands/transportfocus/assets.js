@@ -22,7 +22,7 @@ var highways_stylemap = new OpenLayers.StyleMap({ 'default': highways_style });
 
 var defaults = {
     wfs_url: "https://tilma.mysociety.org/mapserver/highways",
-    body: 'Highways England',
+    body: 'National Highways',
     // this covers zoomed right out on Cumbrian sections of the M6
     max_resolution: 40,
     min_resolution: 0.0001,

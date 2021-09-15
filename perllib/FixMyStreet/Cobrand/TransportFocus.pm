@@ -12,7 +12,7 @@ sub country { 'GB' }
 
 sub on_map_default_status { 'open' }
 
-sub council_name { 'Highways England' }
+sub council_name { 'National Highways' }
 
 sub all_reports_single_body { { name => $_[0]->council_name } }
 
@@ -37,7 +37,7 @@ sub report_form_extras { (
 ) }
 
 sub body {
-    FixMyStreet::DB->resultset('Body')->search({ name => 'Highways England' })->first;
+    FixMyStreet::DB->resultset('Body')->search({ name => 'National Highways' })->first;
 }
 
 sub dashboard_permission {

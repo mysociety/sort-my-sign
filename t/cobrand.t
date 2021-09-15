@@ -19,7 +19,7 @@ use_ok 'FixMyStreet::Cobrand::TransportFocus';
 
 my $mech = FixMyStreet::TestMech->new;
 
-my $body = $mech->create_body_ok(11809, 'Highways England');
+my $body = $mech->create_body_ok(11809, 'National Highways');
 my $contact = $mech->create_contact_ok(
     body => $body, category => 'Missing', email => 'missing@example.org');
 
