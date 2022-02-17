@@ -131,41 +131,37 @@ sub _lookup_db {
 }
 
 sub dashboard_export_problems_add_columns {
-    my $self = shift;
-    my $c = $self->{c};
+    my ($self, $csv) = @_;
 
-    splice @{$c->stash->{csv}->{headers}}, 5, 0, 'Subcategory';
-    splice @{$c->stash->{csv}->{columns}}, 5, 0, 'subcategory';
-
-    $c->stash->{csv}->{headers} = [
+    $csv->_set_csv_headers([
         grep { $_ !~ /Acknowledged|Fixed|Closed|Status|Site Used|Reported As/ }
         map {
             if ($_ eq 'Ward') { 'Region' }
             elsif ($_ eq 'Title') { 'Where' }
             elsif ($_ eq 'User Name') { ('User Name', 'Email', 'Phone') }
             else { $_ }
-        } @{ $c->stash->{csv}->{headers} },
+        } @{$csv->csv_headers},
         "Road",
         "How long",
-    ];
+    ]);
 
-    $c->stash->{csv}->{columns} = [
+    $csv->_set_csv_columns([
         grep { $_ !~ /acknowledged|fixed|closed|state|site_used|reported_as/ }
         map {
             if ($_ eq 'user_name_display') { ('user_name', 'user_email', 'user_phone') }
             else { $_ }
         }
-        @{ $c->stash->{csv}->{columns} },
+        @{$csv->csv_columns},
         "road_name",
         "how_long",
-    ];
+    ]);
 
-    $c->stash->{csv}->{objects} = $c->stash->{csv}->{objects}->search(undef, {
+    $csv->objects_attrs({
         '+columns' => ['user.email', 'user.phone'],
         prefetch => 'user',
     });
 
-    $c->stash->{csv}->{extra_data} = sub {
+    $csv->csv_extra_data(sub {
         my $report = shift;
         my $fields = {
             user_name => $report->name,
@@ -176,7 +172,7 @@ sub dashboard_export_problems_add_columns {
             subcategory => $report->get_extra_field_value('subcategory') || '',
         };
         return $fields;
-    };
+    });
 }
 
 sub fetch_area_children {

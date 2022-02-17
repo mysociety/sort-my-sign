@@ -80,9 +80,8 @@ FixMyStreet::override_config {
     my $user = $mech->log_in_ok('staff@example.org');
     $user->update({ from_body => $body->id });
 
-    $mech->get_ok('/dashboard');
-    $mech->follow_link_ok({ text => 'Reports' });
-    $mech->content_contains('"Report ID",Where,Detail,"User Name",Email,Phone,Category,Subcategory,Created,Confirmed,Latitude,Longitude,Query,Region,Easting,Northing,"Report URL",Road,"How long"');
+    $mech->get_ok('/dashboard?export=1');
+    $mech->content_contains('"Report ID",Where,Detail,"User Name",Email,Phone,Category,Subcategory,Created,Confirmed,Latitude,Longitude,Query,Region,Easting,Northing,"Report URL","Device Type",Road,"How long"');
     $mech->content_contains('"Joe Bloggs",pkg-sort-my-signtcobrandt-user@example.org,,Missing,,');
     $mech->content_contains('M6,"3-6 months"');
 };
